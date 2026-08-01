@@ -2,7 +2,7 @@
 
 A full-stack personal expense tracking application with JWT-based authentication, category management, and expense analytics — built with **React** on the frontend and **Spring Boot + MySQL** on the backend.
 
-![Java](https://img.shields.io/badge/Java-17-orange)
+![Java](https://img.shields.io/badge/Java-17%2B-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.2-brightgreen)
 ![React](https://img.shields.io/badge/React-18.2-blue)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
@@ -75,7 +75,7 @@ expense-tracker/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Java 17+
+- Java 17+ (project targets Java 17, tested and run on JDK 25 LTS)
 - Node.js 16+ and npm
 - MySQL 8+
 

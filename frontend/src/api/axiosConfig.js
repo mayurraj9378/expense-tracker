@@ -1,27 +1,33 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api';
+// API URL from environment variable
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
 
 const api = axios.create({
   baseURL: API_URL,
-  timeout: 30000,
-  headers: { 'Content-Type': 'application/json' },
+  timeout: Number(process.env.REACT_APP_API_TIMEOUT) || 30000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
-// 🔥 Clean token EVERY time
+// Add JWT token to every request
 api.interceptors.request.use(
   (config) => {
     let token = localStorage.getItem('token');
+
     if (token) {
       token = token.replace(/\s/g, '');
       localStorage.setItem('token', token);
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error)
 );
 
+// Handle unauthorized responses
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -30,6 +36,7 @@ api.interceptors.response.use(
       localStorage.removeItem('user');
       window.location.href = '/login';
     }
+
     return Promise.reject(error);
   }
 );
@@ -41,7 +48,8 @@ export const authAPI = {
 
 export const expenseAPI = {
   getAll: () => api.get('/expenses'),
-  getTotal: (start, end) => api.get(`/expenses/total?startDate=${start}&endDate=${end}`),
+  getTotal: (start, end) =>
+    api.get(`/expenses/total?startDate=${start}&endDate=${end}`),
   create: (data) => api.post('/expenses', data),
   delete: (id) => api.delete(`/expenses/${id}`),
 };

@@ -1,40 +1,36 @@
-# Backend
-backend/target/
-
-# Application configuration
-backend/src/main/resources/application-*.properties
-!backend/src/main/resources/application.properties
-!backend/src/main/resources/application.properties.example
-
-*.class
-*.jar
-*.war
+# Logs
+logs
 *.log
-HELP.md
-backend/.mvn/wrapper/maven-wrapper.jar
-
-# Frontend
-frontend/node_modules/
-frontend/build/
-frontend/dist/
-frontend/.env
-frontend/.env.local
-
 npm-debug.log*
 yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# IDE
-.idea/
-*.iml
-.vscode/
-*.swp
+# Dependencies
+node_modules
 
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
+# Build output
+dist
+dist-ssr
 
-# Environment
+# Environment files
 .env
-.env.*
+.env.local
+.env.production.local
+.env.development.local
 !.env.example
+
+# Local config
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

@@ -1,8 +1,11 @@
 # Backend
 backend/target/
-backend/src/main/resources/application.properties
+
+# Application configuration
 backend/src/main/resources/application-*.properties
+!backend/src/main/resources/application.properties
 !backend/src/main/resources/application.properties.example
+
 *.class
 *.jar
 *.war
@@ -13,8 +16,10 @@ backend/.mvn/wrapper/maven-wrapper.jar
 # Frontend
 frontend/node_modules/
 frontend/build/
+frontend/dist/
 frontend/.env
 frontend/.env.local
+
 npm-debug.log*
 yarn-debug.log*
 
@@ -29,7 +34,7 @@ yarn-debug.log*
 Thumbs.db
 desktop.ini
 
-# Env
+# Environment
 .env
 .env.*
 !.env.example

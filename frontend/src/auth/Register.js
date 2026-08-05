@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Form, Button, Card, Alert, Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { authAPI } from '../api/axiosConfig';
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -21,30 +22,18 @@ const Register = () => {
 
     try {
       console.log('📤 Register attempt for:', userData.username);
-      
-      const response = await fetch('http://localhost:8080/api/auth/register', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(userData)
-      });
 
-      const data = await response.json();
-      console.log('📊 Response:', data);
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Registration failed');
-      }
+      const response = await authAPI.register(userData);
+      console.log('📊 Response:', response.data);
 
       toast.success('Registration successful! Please login.');
       navigate('/login');
 
     } catch (error) {
-      console.error('❌ Register error:', error);
-      setError(error.message);
-      toast.error(error.message);
+      const message = error.response?.data?.message || error.message || 'Registration failed';
+      console.error('❌ Register error:', message);
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }

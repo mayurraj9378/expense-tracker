@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { authAPI } from '../api/axiosConfig';
 
 const AuthContext = createContext();
 
@@ -42,17 +43,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await fetch('http://localhost:8080/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(credentials)
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
+      const response = await authAPI.login(credentials);
+      const data = response.data;
 
       if (!data.token) {
         throw new Error('No token received');
@@ -75,7 +67,8 @@ export const AuthProvider = ({ children }) => {
       return { success: true };
       
     } catch (error) {
-      return { success: false, error: error.message };
+      const message = error.response?.data?.message || error.message;
+      return { success: false, error: message };
     }
   };
 
